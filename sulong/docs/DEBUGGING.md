@@ -5,6 +5,10 @@ Sulong supports source-level debugging on the
 Chrome Inspector. This includes support for single-stepping, breakpoints and inspection of local
 and global variables.
 
+## Prerequisites
+
+Sulong supports IR-level debugging, as well as source-level debugging. Concerning source-level debugging, it is important that the LLVM bitcode file has been compiled by clang using the `-g` option in order to provide source-level information for the debugger. If source-level debugging is not used (only IR-level debugging), then this `-g` option is not necessary. 
+
 ## Setup
 
 The Chrome Inspector can be used with both the precompiled GraalVM and Sulong built from source.
@@ -60,6 +64,83 @@ reaches a call to `__builtin_debugtrap()` before invoking the debugger. To enabl
 pass the arguments `--inspect.Suspend=false` and `--inspect.WaitAttached=true` (or
 `-Dpolyglot.inspect.Suspend=false` and `-Dpolyglot.inspect.WaitAttached=true` if you compiled Sulong
 from source).
+
+### Expression Evaluation
+
+In general, Sulong supports evaluating expressions in the console as well as with watch expressions. 
+However, the input language of these expressions is not the C or C++ language, since Sulong uses LLVM-IR 
+code instead of C/C++ code. Therefore, there exists a special language based on C/C++ for Sulong's expression 
+evaluation, which can be found in the next chapter. 
+
+## Language Description for Expression Evaluation
+
+As mentioned above, Sulong supports expression evaluation. This section describes the input language of these 
+expressions. Concerning the execution order of subexpressions, the following holds:
+
+* Building nested expressions (`ptr->elem + ((int)weight) - (root > 4 ? 0 : getRoot(4))`) is possible. 
+
+* Using parenthesis (e.g. `a * (b + c)`) to group expressions is possible.  
+
+* If feature A is listed above feature B in the following list and no parenthesis are present, then also feature 
+A binds stronger than B. For example, multiplication is listed above the `<` compare operator. 
+Therefore, `3 * a < 40` results in `(3 * a) < 40`.
+
+### Expression description
+
+The language, in which expressions for evaluations have to be written, provides the following features:
+
+* Using constant values, i.e. integers (e.g. `13`), floating-point numbers (e.g. `3.4424` or `2e4`) and character constants (`'e'`)
+
+* Using symbols (variables, objects, method names) that live in the source-level program (e.g. `age` or `personObj`)
+
+* Accessing more complex symbols: 
+
+  * Performing function calls (e.g. `foo(arg1, arg2)`) of functions that are defined in the source-level program. 
+    * Developers can also define helper functions in their source-level program (e.g. allocating a String object on the heap) that can be executed via Sulong's expression evaluation. 
+  * Accessing array elements (e.g. `arr[4]` or `elems[idx+1]`)
+  * Accessing members of structured objects or pointers (e.g. `personObj.name`, `personPtr->name`)
+
+* Determining the size of types (`sizeof(unsigned int*)`)
+
+* Performing casts (e.g. `(int)(3.4+a)`)
+
+* Using unary operators for
+  * negating numbers (e.g. `-4` or `-amount`)
+  * dereferencing of pointer values (`*ptr`)
+  * performing bit flipping (`~4` or `~nElems`) of integer types
+  * negating 'boolean' expressions (`!condition`). If `condition` is an integer type, `0` is considered as `false`, every other value is considered as `true`
+
+* Using multiplication, division and the modulo operator (e.g. `rate * hours`, `dist / time`, `nTotal % nSize`). The result of a division or a modulo operation depends on whether operands are unsigned or signed if they are of an integer type. 
+
+* Using addition and subtraction (e.g. `a + b` or `nOld + nAdd - nRemove`)
+
+* Bit shifting (e.g. `a >> 2` or `b << n2`) of integer types. For the `>>` operator, the result depends on whether the left operand is signed or unsigned. 
+
+* Comparing expressions with common order relations: `<` (less than), `<=` (less than or equal), `>` and `>=` (greater than (or equal)). 
+  * If both operands are of signed integer types, then the comparison is a signed integer comparison.  
+  * If both operands are of integer types and at least one of them is of an unsigned integer type, then the comparison is an unsigned integer comparison. 
+
+* Comparing expressions with common equality relations, which are `==` for equality and `!=` for inequality
+
+* Performing bit-wise AND, OR and XOR operations (e.g. `nFlags & ~(1 << 3)`, `nFlags | (1 << 4)` or `nFlags ^ 1`). AND binds stronger than OR, OR binds stronger than XOR. 
+
+* Performing logical AND and OR operations (e.g. `ptr!=null && ptr->a >= 3` or `invalid || noElemFound`). AND binds stronger than OR. Concerning evaluation, a 'short circuit evaluation' is applied, i.e. if `ptr` of the example above is `null`, then the second condition `ptr->a >= 3` is not evaluated. 
+
+* Using the conditional operator `condition ? thenExpr : elseExpr`. If `condition` is true or other than `0`, then `thenExpr` is evaluated. Otherwise, `elseExpr` is evaluated. For finding the maximum of two numbers a and b, the expression would look like `a>b ? a : b`. 
+
+### Type description
+
+For some of the features listed above, it is necessary to specify a type. Sulong's expression evaluation therefore offers two possibilities: 
+
+* Pre-defined types: 
+  * signed integer types: `char` (8 bits), `short` (16 bits), `int` (32 bits), `long` (64 bits). These types can also be specified with the `signed` identifier (`signed char` , `signed short`, etc.).
+  * unsigned integer types: `unsigned char`, `unsigned short`, `unsigned int`, `unsigned long`
+  * floating-point types: `float` (32-bit), `double` (64 bit) and `long double` (LLVM 80 bit)
+  * These basic types are converted implicitly from top to bottom, e.g. `a+b` results in an unsigned integer, if `a` is `unsigned` and `b` is `signed`. 
+  * Pointer types are denoted by the asterisc symbol (e.g. `int*`)
+  * Array types are denoted by square brackets (e.g. `long[]`). For the `sizeof(...)` operator, array types can also be specified with the number of elements (e.g. `sizeof(int[5])`). 
+
+* User-defined types: Accessing user-defined types is done via the `typeof` operator and is only possible if there exists a symbol of this type in the source-level program. If e.g. a program uses its own structure such as `struct { int x; int y; } Point2D;` and there exists a `Point2D* p;`, then `typeof(p)` returns the type `Point2D*` (a pointer type to `Point2D`). 
 
 ## FAQ
 
