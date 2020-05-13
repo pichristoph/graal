@@ -167,6 +167,7 @@ public final class LLVMParser {
         Function function = new LazyLLVMIRFunction(lazyConverter);
         LLVMFunction llvmFunction = LLVMFunction.create(functionSymbol.getName(), library, function, functionSymbol.getType(), runtime.getBitcodeID(), functionSymbol.getIndex());
         runtime.getFileScope().register(llvmFunction);
+        lazyConverter.resolveLinkageName();
 
         // handle the global scope
         if (functionSymbol.isExported()) {
