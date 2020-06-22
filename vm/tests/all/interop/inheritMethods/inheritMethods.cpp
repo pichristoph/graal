@@ -2,6 +2,7 @@
 #include<polyglot.h>
 #include<iostream>
 
+int main() {
 
 PolyglotFile* jsFile = Polyglot.evalFile("js", "inheritMethodsClass.js");
 PolyglotFile* pyFile = Polyglot.evalFile("python", "inheritMethodsClass.py");
@@ -40,3 +41,4 @@ free(ll_mult3);
 free(jsFile);
 free(pyFile);
 free(llFile);
+}

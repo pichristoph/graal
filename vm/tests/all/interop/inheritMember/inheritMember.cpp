@@ -3,6 +3,7 @@
 #include<stdio.h>
 #include<iostream>
 
+int main() {
 PolyglotFile* jsFile = Polyglot::evalFile("js", "inheritMemberClass.js");
 PolyglotFile* pyfile = Polyglot::evalFile("python", "inheritMemberClass.py");
 PolyglotFile* llvmFile = Polyglot::evalFile("llvm", "inheritMemberClass.so");
@@ -31,6 +32,7 @@ free(ll_c3);
 free(jsFile);
 free(pyFile);
 free(llvmFile);
+}
 
 
 
