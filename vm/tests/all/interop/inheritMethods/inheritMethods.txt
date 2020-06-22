@@ -1,0 +1,14 @@
+//inheritMethods.txt
+
+'inheritMethods' is an example for polyglot language interoperability, based on a common data struct/class. 
+
+'inheritMethods.*' contains a program itself (='main method'), 'inheritMethodsClass.*' contains the data structure needed. 
+
+class ConstAdder
+	int x;
+	int process(y->x+y)
+	int getX( () -> x)
+
+class ConstMultiplier extends Adder:
+	int process(y->x*y)
+	

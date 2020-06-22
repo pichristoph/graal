@@ -11,18 +11,15 @@ int main() {
 	
 	/*
 	 * maybe, types which are found in other files are imported with a language prefix.
-	 * I.e., if in simpleClassPoint.js the type "Point" is found, it is named as JS_Point. 
-	 * If not possible, maybe every polyglot call returns a Value*, and we might call valueObj->invoke("methodName", args). 
+	 * I.e., if in simpleClassPoint.js the type "Point" is found, it is named as JS_Point.
 	 */
-
-	//With or without keyword "new"?
 	
-	LLVM_Point* lp1 = llvmFile->Point(4, 5);
-	Python_Point* pp2 = pyFile->Point(1, 9);
-	Python_Point* pp1 = pyFile->Point(lp1->getX(), lp1->getY());
-	LLVM_Point* lp2 = llvmFile->Point(pp2->getX(), pp2->getY());
-	JS_Point* jp1 = new jsFile->Point(4, 5);
-	JS_Point* jp2 = jsFile->Point(1, 9);
+	LLVM_Point* lp1 = llvmFile->invoke("Point", 4, 5);
+	Python_Point* pp2 = pyFile->invoke("Point", 1, 9);
+	Python_Point* pp1 = pyFile->invoke("Point", lp1->getX(), lp1->getY());
+	LLVM_Point* lp2 = llvmFile->invoke("Point", pp2->getX(), pp2->getY());
+	JS_Point* jp1 = new jsFile->invoke("Point", 4, 5);
+	JS_Point* jp2 = jsFile->invoke("Point", 1, 9);
 	
 	double ld = lp1->distanceTo(lp2);
 	double pd = pp2->distanceTo(pp1);

@@ -12,6 +12,7 @@ class LinearFunction:
 
 
 class ConstFunction (LinearFunction):
+
 	def __init__(self, d) {
 		super().__init__(self, 0, d)
 	}
