@@ -44,4 +44,15 @@ int main() {
 	//optional and not possible that easily in C++ (type cast/...?)	
 	double mixed = lp1->distanceTo(pp2)
 	cout << "Distance between LLVM and Python point, should be 5: " << mixed << endl;
+
+	free(lp1);
+	free(lp2);
+	free(pp1);
+	free(pp2);
+	free(jp1);
+	free(jp2);
+	free(llvmFile);
+	free(pyFile);
+	free(jsFile);
+	
 }
