@@ -1,6 +1,6 @@
 //references.js
 
-var llFile = polyglot.evalFile("llvm", "referencesClass.cpp");
+var llFile = Polyglot.evalFile("llvm", "referencesClass.so");
 
 c = new llFile.MyClass();
 c.i = 3;
