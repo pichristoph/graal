@@ -1,0 +1,16 @@
+lambdaExprINFO.txt
+
+Test written for conversion between lambda expressions (x->x+1) and function pointers. 
+
+######lambdaExprClass.* pseudo code
+
+MyClass{
+	foo: function int -> int
+	getter/setter only needed if field cannot be read/written
+}
+
+######lambdaExpr.* pseudo code
+
+MyClass c = new MyClass()
+c.foo = x -> x*2+1;
+print(c.foo(8))
