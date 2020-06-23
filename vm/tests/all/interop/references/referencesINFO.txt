@@ -1,0 +1,12 @@
+//referencesINFO.txt
+
+aimed for C++ mainly
+
+referencesClass.*: contains
+
+class MyClass
+	member: int i (publicly accessible)
+	method: int& getReference: return reference to variable i
+
+
+references.*: main program: initializes a MyClass instance, fetches the reference, updates the reference variable and then checks the value for i
