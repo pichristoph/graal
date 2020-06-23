@@ -1,0 +1,7 @@
+//exceptionTestINFO.txt
+
+testing (very) simple exception throwing:
+
+exceptionTest.*: main program which calls both a C++ and a python method which divide by 0. Exception should be caught in main program. 
+
+throwingProgram.*: listing that contains the method which is called as described above and which throws an exception. 
