@@ -14,7 +14,7 @@ JS_ConstMultiplier* js_mult3 = jsFile->invoke("ConstMultiplier", 3);
 cout << "f(-, ()->2)=" << js_add2->getConstObj() << endl;
 cout << "f(-, ()->3, inherited)=" << js_mult3->getConstObj() << endl;
 cout << "f(5, x->x+2)=" << js_add2->process(5) << endl;
-cout << "f(7, x->x*3)=" << js_mult3->process(7) << endl;
+cout << "f(7, x->x*3, overridden)=" << js_mult3->process(7) << endl;
 
 Python_ConstAdder* py_add2 = pyFile->invoke("ConstAdder", 2);
 Python_ConstMultiplier* py_mult3 = pyFile->invoke("ConstMultiplier", 3);
@@ -22,7 +22,7 @@ Python_ConstMultiplier* py_mult3 = pyFile->invoke("ConstMultiplier", 3);
 cout << "f(-, ()->2)=" << py_add2->getConstObj() << endl;
 cout << "f(-, ()->3, inherited)=" << py_mult3->getConstObj() << endl;
 cout << "f(5, x->x+2)=" << py_add2->process(5) << endl;
-cout << "f(7, x->x*3)=" << py_mult3->process(7) << endl;
+cout << "f(7, x->x*3, overridden)=" << py_mult3->process(7) << endl;
 
 LLVM_ConstAdder* ll_add2 = llFile->invoke("ConstAdder", 2);
 LLVM_ConstMultiplier* ll_mult3 = llFile->invoke("ConstMultiplier", 3);
@@ -30,7 +30,12 @@ LLVM_ConstMultiplier* ll_mult3 = llFile->invoke("ConstMultiplier", 3);
 cout << "f(-, ()->2)=" << ll_add2->getConstObj() << endl;
 cout << "f(-, ()->3, inherited)=" << ll_mult3->getConstObj() << endl;
 cout << "f(5, x->x+2)=" << ll_add2->process(5) << endl;
-cout << "f(7, x->x*3)=" << ll_mult3->process(7) << endl;
+cout << "f(7, x->x*3, overridden)=" << ll_mult3->process(7) << endl;
+
+//test 'virtuality' of methods
+LLVM_ConstAdder* ll_mult3A = ll_mult3;
+cout << "f(-, ()->3, inherited)=" << ll_mult3A->getConstObj() << endl;
+cout << "f(7, x->x*3, inherited, virtual)=" << ll_mult3A->process(7) << endl;
 
 free(js_add2);
 free(py_add2);
