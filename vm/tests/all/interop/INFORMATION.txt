@@ -1,0 +1,9 @@
+Information for tests: 
+
+>Each test scenario is located in its own folder. 
+>Each folder contains one or more files named 'testMain.*' (e.g. 'testMain.py' or 'testMain.cpp'). These files have to be run when executing the tests. 
+>Each folder also contains 'data classes', i.e. classes that are accessed by the testMain classes via Polyglot. Each testMain file calls each data class file inside a folder.
+	>i.e. 'testMain.py', 'testMain.cpp', 'throwing.cpp', 'throwing.py': both main classes call both throwing files (=2*2=4 "Polyglot.evalFile(..) calls").  
+>Each folder contains a '[data class]INFO.txt' file which describes what is tested exactly. 
+
+>Checking if the tests pass: The testmain classes use error counters to keep track. If no errors occur, 'OK' is printed. 

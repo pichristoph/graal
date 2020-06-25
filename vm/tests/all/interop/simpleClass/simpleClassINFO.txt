@@ -1,8 +1,6 @@
 //simpleClass.txt
 
-'simpleClass' is an example for polyglot language interoperability, based on a common data struct/class. 
-
-'simpleClass.*' contains a program itself (='main method'), 'simpleClassPoint.*' contains the data structure needed. 
+tests basic member/field access and basic method calling. 
 
 Point
 -----------
@@ -12,5 +10,5 @@ Point
 >int() getX(), getY()
 >void setX(int), setY(int)
 >double distanceTo(Point other)
->void printMe()
+>boolean checkMe(x,y) 
 

@@ -1,4 +1,4 @@
-//simpleClassPoint.js
+//Point.js
 
 class Point {
 	constructor(x, y) {
@@ -18,8 +18,8 @@ class Point {
 	setY(val) {
 		this.y=val;
 	}
-	printMe() {
-		console.log("Point: x=", this.x, ", y=", this.y);
+	checkMe(x,y) {
+		return this.x==x && this.y == y;
 	}
 	distanceTo(other) {
 		dX = this.x - other.x;

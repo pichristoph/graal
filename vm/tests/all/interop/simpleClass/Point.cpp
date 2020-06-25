@@ -1,5 +1,4 @@
-//simpleClass.cpp
-#include<iostream.h>
+//Point.cpp
 #include<polyglot.h>
 #include<math.h>
 
@@ -13,7 +12,7 @@ class Point {
 	void setX(int dX);
 	void setY(int dY);
 	double distanceTo(Point* other);
-	void printMe();
+	int checkMe(int dX, int dY);
 };
 
 POLYGLOT_DECLARE_CLASS(Point);
@@ -34,8 +33,8 @@ void Point::setY(int dY) {
 	y=dY;
 }
 
-void Point::printMe() {
-	cout << "Point: x=" << x << ", y=" << endl;
+int Point::checkMe(int dX, int dY) {
+	return dX==x && dY==y;
 }
 
 double distanceTo(Point* other) {

@@ -1,8 +1,6 @@
-//inheritMember.txt
+//inheritMember
 
-'inheritMember' is an example for polyglot language interoperability, based on a common data struct/class. 
 
-'inheritMember.*' contains a program itself (='main method'), 'inheritMemberClass.*' contains the data structure needed. 
 
 class LinearFunction: 
 	(int) members k and d (taken by constructor, stored as field).

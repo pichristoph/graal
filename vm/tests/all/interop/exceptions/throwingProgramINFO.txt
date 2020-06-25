@@ -1,0 +1,4 @@
+testing (very) simple exception throwing:
+
+main program calls methods from 'throwingProgram.*', which divide by 0. Exception should be caught in main program. 
+

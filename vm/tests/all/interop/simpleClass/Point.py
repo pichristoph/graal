@@ -1,4 +1,4 @@
-#simpleClass.py
+#Point.py
 import math
 
 class Point:
@@ -18,8 +18,8 @@ class Point:
 	def setY(self, val):
 		self.y=val
 
-	def printMe(self):
-		print("Point: x="+str(self.x)+", y="+str(self.y))
+	def checkMe(self, x, y):
+		return self.x==x and self.y==y
 	
 	def distanceTo(self, other) {
 		dX = self.x - other.x

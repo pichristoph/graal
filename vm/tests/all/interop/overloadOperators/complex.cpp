@@ -2,22 +2,22 @@
 
 #include<polyglot.h>
 
-class Complex {
+class ComplexNumber {
 	public: 
 		double re;
 		double im;
-		Complex(double reV, double imV);
+		ComplexNumber(double reV, double imV);
 };
 
-POLYGLOT_DECLARE_CLASS(Complex);
+POLYGLOT_DECLARE_CLASS(ComplexNumber);
 
-Complex::Complex(double reV, double imV) {
+ComplexNumber::ComplexNumber(double reV, double imV) {
 	re=reV;
 	im=imV;
 }
 
-Complex operator+(const Complex& c1, const Complex& c2) {
-	Complex c(c1.re+c2.re, c1.im+c2.im);
+ComplexNumber operator+(const ComplexNumber& c1, const ComplexNumber& c2) {
+	ComplexNumber c(c1.re+c2.re, c1.im+c2.im);
 	return c;
 }
 

@@ -1,49 +1,39 @@
-//inheritMethods.cpp
+//inheritMethodsClass.cpp
 #include<polyglot.h>
-#include<iostream>
 
-int main() {
+class ConstAdder {
+	protected:
+		int constObj;
+	public:
+	ConstAdder(int x);
+	virtual int process(int y);
+	virtual int getConstObj();
+};
 
-PolyglotFile* jsFile = Polyglot.evalFile("js", "inheritMethodsClass.js");
-PolyglotFile* pyFile = Polyglot.evalFile("python", "inheritMethodsClass.py");
-PolyglotFile* llFile = Polyglot.evalFile("llvm", "inheritMethodsClass.so");
+DECLARE_POLYGLOT_CLASS(ConstAdder);
 
-JS_ConstAdder* js_add2 = jsFile->invoke("ConstAdder", 2);
-JS_ConstMultiplier* js_mult3 = jsFile->invoke("ConstMultiplier", 3);
+class ConstMultiplier extends ConstAdder {
+	public:
+		ConstMultiplier(int x);
+		int process(int y);
+};
 
-cout << "f(-, ()->2)=" << js_add2->getConstObj() << endl;
-cout << "f(-, ()->3, inherited)=" << js_mult3->getConstObj() << endl;
-cout << "f(5, x->x+2)=" << js_add2->process(5) << endl;
-cout << "f(7, x->x*3, overridden)=" << js_mult3->process(7) << endl;
+DECLARE_POLYGLOT_CLASS(ConstMultiplier);
 
-Python_ConstAdder* py_add2 = pyFile->invoke("ConstAdder", 2);
-Python_ConstMultiplier* py_mult3 = pyFile->invoke("ConstMultiplier", 3);
+ConstAdder::ConstAdder(int x) {
+	constObj = x;
+}
 
-cout << "f(-, ()->2)=" << py_add2->getConstObj() << endl;
-cout << "f(-, ()->3, inherited)=" << py_mult3->getConstObj() << endl;
-cout << "f(5, x->x+2)=" << py_add2->process(5) << endl;
-cout << "f(7, x->x*3, overridden)=" << py_mult3->process(7) << endl;
+int ConstAdder::process(int y) {
+	return y+constObj;
+}
 
-LLVM_ConstAdder* ll_add2 = llFile->invoke("ConstAdder", 2);
-LLVM_ConstMultiplier* ll_mult3 = llFile->invoke("ConstMultiplier", 3);
+int ConstAdder::getConstObj() {
+	return constObj;
+}
 
-cout << "f(-, ()->2)=" << ll_add2->getConstObj() << endl;
-cout << "f(-, ()->3, inherited)=" << ll_mult3->getConstObj() << endl;
-cout << "f(5, x->x+2)=" << ll_add2->process(5) << endl;
-cout << "f(7, x->x*3, overridden)=" << ll_mult3->process(7) << endl;
+ConstMultiplier::ConstMultiplier(int x):ConstAdder(x) {}
 
-//test 'virtuality' of methods
-LLVM_ConstAdder* ll_mult3A = ll_mult3;
-cout << "f(-, ()->3, inherited)=" << ll_mult3A->getConstObj() << endl;
-cout << "f(7, x->x*3, inherited, virtual)=" << ll_mult3A->process(7) << endl;
-
-free(js_add2);
-free(py_add2);
-free(ll_add2);
-free(js_mult3);
-free(py_mult3);
-free(ll_mult3);
-free(jsFile);
-free(pyFile);
-free(llFile);
+int ConstMultiplier::process(int y) {
+	return y*constObj;
 }

@@ -1,5 +1,0 @@
-OVERLOAD OPERATORS
-
-'complex.*' contains a class 'complex' (representing complex numbers) which also overloads the operators + and -
-
-'overloadOperators.*' uses these overloaded operators
