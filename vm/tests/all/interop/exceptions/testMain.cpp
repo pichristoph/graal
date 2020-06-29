@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
 
-PolyglotFile* pyFile = polyglot.evalFile("py", "throwingProgram.py")
+PolyglotFile* pyFile = polyglot.evalFile("py", "throwingProgram.py");
 
 int pass=0;
 
@@ -18,7 +18,7 @@ try {
 
 free(pyFile);
 
-PolyglotFile* llFile = polyglot.evalFile("llvm", "throwingProgram.so")
+PolyglotFile* llFile = polyglot.evalFile("llvm", "throwingProgram.so");
 
 try {
 	llFile->invoke("run", 5);	//calculate 5/0

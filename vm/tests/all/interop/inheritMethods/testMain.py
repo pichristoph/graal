@@ -4,7 +4,7 @@ import polyglot
 def check(nErrors, info, expected, actual):
 	if(expected!=actual):
 		print(info+str(actual))
-		nErrors++
+		nErrors+=1
 	return nErrors
 
 nErrors = 0

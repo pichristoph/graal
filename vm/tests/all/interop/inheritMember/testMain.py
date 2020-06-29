@@ -16,32 +16,32 @@ ll_c3 =  llvmFile.ConstFunction(5)
 val = js_idP2.evaluate(3)
 if(val!=14):
 	print("ERROR! JS: f(3, x->4x+2)=", val)
-	nErrors++
+	nErrors+=1
 
 val = js_c3.evaluate(2)
 if(val!=5):
 	print("ERROR! JS: f(2, x->5)=", val)
-	nErrors++
+	nErrors+=1
 
 val = py_idP2.evaluate(3)
 if(val!=14):
 	print("ERROR! Python: f(3, x->4x+2)=", val)
-	nErrors++
+	nErrors+=1
 
 val = py_c3.evaluate(2)
 if(val!=5):
 	print("ERROR! Python: f(2, x->5)=", val)
-	nErrors++
+	nErrors+=1
 
 val = ll_idP2.evaluate(3)
 if(val!=14):
 	print("ERROR! C++/LLVM: f(3, x->4x+2)=", val)
-	nErrors++
+	nErrors+=1
 	
 val = ll_c3.evaluate(2)
 if(val!=5):
 	print("ERROR! C++/LLVM: f(2, x->5)=", val)
-	nErrors++
+	nErrors+=1
 
 if(nErrors==0):
 	print("OK")
