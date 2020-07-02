@@ -4,19 +4,12 @@
 using namespace std;
 
 class TestClass {
-	protected: 
-		int x;
 	public:
 	virtual TestClass(int x);
-
-	int getX();
+	virtual int getX();
 };
 
 POLYGLOT_DECLARE_CLASS(TestClass);
-
-int TestClass::getX() {
-	return x;
-}
 
 int main() {
 	void* jsFile = polyglot_eval_file("js", "constructor2.js");

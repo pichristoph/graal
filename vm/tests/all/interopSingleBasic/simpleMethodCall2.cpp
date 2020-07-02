@@ -14,7 +14,7 @@ int main() {
 	void* jsFile = polyglot_eval_file("js", "simpleMethodCall1.js");
 	MyClass* myClassObj = new MyClass();
 	void* fooResult = polyglot_invoke(jsFile, "printFooResult", myClassObj);
-	int fooValue = polyglot_as_int(fooResult);
+	int32_t fooValue = polyglot_as_i32(fooResult);
 	cout << "[LLVM] Now, it should print \"748\": " << fooResult << endl;
 	free(myClassObj);
 	free(jsFile);
