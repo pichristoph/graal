@@ -5,7 +5,7 @@ using namespace std;
 
 class TestClass {
 	public:
-	virtual TestClass(int x);
+	TestClass(int x);
 	virtual int getX();
 };
 
