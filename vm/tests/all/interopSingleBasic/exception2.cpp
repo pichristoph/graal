@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-	void* llvmFile = polyglot_eval_file("llvm", "exception1.so");
+	void* llvmFile = polyglot_eval_file("js", "exception2.js");
 	try {
 		void* val = polyglot_invoke(llvmFile, "run", 3);	//calculate 8/3
 		int32_t intVal = polyglot_as_i32(val);

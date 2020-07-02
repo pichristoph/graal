@@ -11,7 +11,7 @@ class MyClass {
 };
 
 int main() {
-	void* jsFile = polyglot_eval_file("js", "simpleMethodCall1.js");
+	void* jsFile = polyglot_eval_file("js", "simpleMethodCall2.js");
 	MyClass* myClassObj = new MyClass();
 	void* fooResult = polyglot_invoke(jsFile, "printFooResult", myClassObj);
 	int32_t fooValue = polyglot_as_i32(fooResult);

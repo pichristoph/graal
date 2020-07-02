@@ -19,7 +19,7 @@ class B:public A {
 POLYGLOT_DECLARE_CLASS(B);
 
 int main() {
-	llvmFile = Polyglot.evalFile("llvm", "inheritMethods1.so");
+	llvmFile = Polyglot.evalFile("js", "inheritMethods2.js");
 
 	//A has methods foo1(), foo2()
 	void* ap = polyglot_new_instance(polyglot_A_typeid()); 
