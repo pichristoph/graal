@@ -14,3 +14,11 @@ class B extends A {
 		console.log("B::foo2()");
 	}
 }
+
+function createB() {
+	return new B();
+}
+
+function createA() {
+	return new A();
+}

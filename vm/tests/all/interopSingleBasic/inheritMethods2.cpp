@@ -22,10 +22,10 @@ int main() {
 	llvmFile = Polyglot.evalFile("js", "inheritMethods2.js");
 
 	//A has methods foo1(), foo2()
-	void* ap = polyglot_new_instance(polyglot_A_typeid()); 
+	void* ap = llvmFile.createA(); 
 	//B extends A, has method foo2() only
-	void* bp = polyglot_new_instance(polyglot_B_typeid());
-	void* bbp = polyglot_new_instance(polyglot_B_typeid());
+	void* bp = llvmFile.createB();
+	void* bbp = llvmFile.createB();
 
 	A* a = polyglot_as_A(ap);
 	B* b = polyglot_as_B(bp);
