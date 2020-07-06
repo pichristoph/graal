@@ -32,3 +32,10 @@ void ChildClass::setVal(int value) {
 int ChildClass::evaluate(int x) {
 	return val*x;
 }
+
+void processAndEvaluate(void* cObj, void* evalVal) {
+	ChildClass* childObj = polyglot_as_ChildClass(cObj);
+	int64_t val = polyglot_as_int64(evalVal);
+	cout << "[LLVM] Using JS Object and Member inheritance, result should be 24: " << childObj->evaluate(val) << endl;
+	free(jsFile);
+}
