@@ -481,7 +481,7 @@ public abstract class LLVMInteropType implements TruffleObject {
 
         @ExportMessage
         boolean isExecutable() {
-            return InteropLibrary.getUncached(foreignMethodObject).isException(foreignMethodObject);
+            return InteropLibrary.getUncached(foreignMethodObject).isExecutable(foreignMethodObject);
         }
 
         @ExportMessage
