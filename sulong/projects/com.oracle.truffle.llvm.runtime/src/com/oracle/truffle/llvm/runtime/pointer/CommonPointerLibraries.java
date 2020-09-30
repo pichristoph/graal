@@ -187,16 +187,6 @@ abstract class CommonPointerLibraries {
     }
 
     @ExportMessage
-    static boolean isExecutable(LLVMPointerImpl receiver) {
-        return InteropLibrary.getUncached().isExecutable(receiver);
-    }
-
-    @ExportMessage
-    static Object execute(LLVMPointerImpl receiver, Object[] arguments) throws UnsupportedTypeException, ArityException, UnsupportedMessageException {
-        return InteropLibrary.getUncached().execute(receiver, arguments);
-    }
-
-    @ExportMessage
     @SuppressWarnings("unused")
     static boolean isMemberInsertable(LLVMPointerImpl receiver, String ident) {
         return false;
