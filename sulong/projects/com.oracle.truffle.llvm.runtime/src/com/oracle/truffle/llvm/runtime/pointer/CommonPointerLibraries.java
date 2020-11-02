@@ -55,8 +55,8 @@ import com.oracle.truffle.llvm.runtime.interop.access.LLVMInteropInvokeNode;
 import com.oracle.truffle.llvm.runtime.interop.access.LLVMInteropReadMemberNode;
 import com.oracle.truffle.llvm.runtime.interop.access.LLVMInteropType;
 import com.oracle.truffle.llvm.runtime.interop.access.LLVMInteropType.Clazz;
+import com.oracle.truffle.llvm.runtime.interop.access.LLVMInteropWriteMemberNode;
 import com.oracle.truffle.llvm.runtime.interop.export.LLVMForeignGetIndexPointerNode;
-import com.oracle.truffle.llvm.runtime.interop.export.LLVMForeignGetMemberPointerNode;
 import com.oracle.truffle.llvm.runtime.interop.export.LLVMForeignReadNode;
 import com.oracle.truffle.llvm.runtime.interop.export.LLVMForeignWriteNode;
 import com.oracle.truffle.llvm.runtime.nodes.op.LLVMAddressEqualsNode;
@@ -187,11 +187,9 @@ abstract class CommonPointerLibraries {
     }
 
     @ExportMessage
-    static void writeMember(LLVMPointerImpl receiver, String ident, Object value,
-                    @Cached LLVMForeignGetMemberPointerNode getElementPointer,
-                    @Exclusive @Cached LLVMForeignWriteNode write) throws UnsupportedMessageException, UnknownIdentifierException {
-        LLVMPointer ptr = getElementPointer.execute(receiver.getExportType(), receiver, ident);
-        write.execute(ptr, ptr.getExportType(), value);
+    static void writeMember(LLVMPointerImpl receiver, String ident, Object value, @Cached LLVMInteropWriteMemberNode write)
+                    throws UnsupportedMessageException, UnknownIdentifierException, UnsupportedTypeException {
+        write.execute(receiver, ident, value, receiver.getExportType());
     }
 
     @ExportMessage
